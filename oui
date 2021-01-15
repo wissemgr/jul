@@ -1,0 +1,180 @@
+
+void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
+{
+    char car = Mat [Pos.first][Pos.second];
+    Mat [Pos.first][Pos.second] = KEmpty;
+    switch (Move)
+    {
+    case 'A':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+        }
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            ++Pos.first;
+            break;
+        }
+        if(Mat [Pos.first][Pos.second] == Mat[5][3])
+        {
+
+        }
+        break;
+    case 'Z':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first-1][Pos.second] == '#')
+        {
+            break;
+        }
+
+        else {
+            --Pos.first;
+        }
+        
+        break;
+
+    case 'E':
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        }
+        else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            ++Pos.first;
+            break;
+        }
+        break;
+    case 'Q':
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second-1] == '#')
+        {
+
+            break;
+        }
+        else {
+            --Pos.second;
+        }
+
+        break;
+    case 'D':
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second+1] == '#')
+        {
+
+            break;
+        }
+        else {
+            ++Pos.second;
+        }
+        break;
+    case 'W':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+
+        }
+        else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+
+        }
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            --Pos.first;
+            break;
+        }
+
+        break;
+    case 'S':
+
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+            break;
+        }
+
+        if(Mat[Pos.first+1][Pos.second] == '#')
+        {
+
+            break;
+        }
+        else {
+            ++Pos.first;
+        }
+
+        if (Mat [Pos.first][Pos.second] == Mat[5][3]){
+
+          Pos.first = Pos.first - 1;
+          Pos.second = Pos.second + 5;
+        }
+        break;
+    case 'C':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+        } else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        } else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            --Pos.first;
+            break;
+        }
+        break;
+    }
+    Mat [Pos.first][Pos.second] = car;
+} //MoveToken ()
