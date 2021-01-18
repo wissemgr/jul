@@ -1,0 +1,243 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <iomanip>
+using namespace std;
+
+bool estPremier (const unsigned & i){
+    for (unsigned j (2) ; j < i; ++j)
+        if (i %j ==0) return false;
+    return true;
+}
+
+vector <unsigned> nbPremiersAvantN (const unsigned & N) {
+    vector<unsigned> vLesPremiers;
+    //vérifier si tous tous les nombres de 1 à N sont premiers
+    for (unsigned i (2); i < N ; ++i){
+        if (estPremier (i)){
+            vLesPremiers.push_back(i);
+        }
+    }
+    return vLesPremiers;
+}
+
+bool estPremier (const unsigned & i, const vector<unsigned> & vect){
+    for (const auto val : vect)
+        if (i % val == 0) return false;
+    return true;
+    //    for (unsigned j (2) ; j < i; ++j)
+    //        if (i %j ==0) return false;
+    //    return true;
+}
+/**
+ * @brief ajoute au vecteur vLesPremiers tous les nombres premiers compris entre [N,M[
+ * @param N
+ * @param vLesPremiers
+ * @param M
+ * @return
+ */
+vector <unsigned> nbPremiersAvantN (const unsigned & N, vector<unsigned> & vLesPremiers,
+                                    const unsigned & M) {
+    //vérifier si tous tous les nombres de 1 à N sont premiers
+    for (unsigned i (M); i < N ; ++i){
+        if (estPremier (i, vLesPremiers)){
+            vLesPremiers.push_back(i);
+        }
+    }
+    return vLesPremiers;
+}
+
+template <typename T>
+void affchichVect(const vector<T> & vect){
+    for (const auto & val : vect)
+        cout << val << ';';
+    cout << endl;
+}
+/**
+ * @brief lire un vecteur d'entiers depuis un fichier.
+1ere ligne : nombre max du premier
+autre ligne : tous les entiers du vecteur
+ * @param[in out] vect
+ * @param[in out] N
+ * @param [in] nomFichier
+ */
+void lireVectPremiersDepuisFichier (vector <unsigned> & vect,
+                                    unsigned & N, const string & nomFichier){
+    vect.resize(0);
+    N = 0;
+    //1 ouvrir un flux vers nomFichier
+    ifstream ifs (nomFichier);
+    //2 s'assurrer que le flux existe et est valide
+    if (!ifs.is_open())
+    {
+        cout <<"il y a eu un soucis";
+        return;
+    }
+
+    //3 lecture du nombre max
+    unsigned Entier;
+    vect.push_back(N);
+
+    //4 lire les elements du vecteur à raison de 1 par ligne
+    while (ifs >> Entier)
+        vect.push_back(Entier);
+
+}
+/**
+ * @brief stocker un vecteur d'entiers dans un fichier.
+1ere ligne : nombre max du premier
+autre lignes : tous les premiers plus petit (strict que max)
+ * @param[in] vect
+ * @param[in] N
+ * @param[in] nomFichier
+ */
+void stockerVectPremiersDansFichier (const vector <unsigned> & vect,
+                                     const unsigned & N, const string & nomFichier){
+    //1 ouvrir un flux vers nomFichier
+    ofstream ofs (nomFichier);
+    //2 s'assurrer que le flux existe et est valide
+    //    if (ofs.is_open() == true)
+    //    {
+    //     // faire action //3 & 4
+    //    }
+    //    else
+    //    {
+    //    cout << "Erreur" << endl;
+    //    }
+    if (! ofs.is_open()){
+        cout << "Erreur" << endl;
+        return;
+    }
+
+    //3 ecrire N
+    ofs << N << endl;
+    //4 ecrire les elements du vecteur à raison de 1 par ligne
+    //    for (const auto & val : vect)
+    //        cout << val << endl;
+    for (unsigned i = 0; i < vect.size() ; ++i)
+        ofs << vect[i] << endl;
+}
+
+typedef vector <vector< unsigned>> cMatrice;
+
+void afficherMatrice (const cMatrice & Mat){
+    for (unsigned i = 0; i < Mat.size(); ++i)
+    {
+        for (unsigned j = 0; j < Mat[i].size(); ++j)
+        {
+            cout << setw (3) << Mat[i][j];
+        }
+        cout << endl;
+    }
+}
+
+void construireMatriceAleatoire (cMatrice & Mat, const unsigned & N){
+    //dimensionner la matrice à la taille NxN
+    Mat.resize(N);
+
+    for (unsigned i = 0; i<Mat.size() ; ++i)
+    {
+        Mat[i].resize(N);
+    }
+
+    //remplir la matrice avec des éléments aléatoires entre 2 et NxN
+    for (unsigned i = 0; i<Mat.size() ; ++i)
+    {
+        for (unsigned j = 0; j<Mat[i].size() ; ++j)
+        {
+            Mat[i][j] = rand () % (N*N) + 1;
+        }
+    }
+
+}
+
+void afficherMatriceUlam (const cMatrice & Mat, const vector <unsigned> & vLesPremiers)
+{
+    for (unsigned i = 0; i<Mat.size() ; ++i)
+    {
+        for (unsigned j = 0; j<Mat[i].size(); ++j)
+        {
+            if (estPremier(Mat[i][j]))
+                cout <<setw (3) <<  'X' ;
+            else
+                cout << setw (3) << ' ';
+        }
+        cout << endl;
+    }
+}
+
+void construireMatriceEscargot (cMatrice & Mat, const unsigned & N){
+    if (N % 2 == 0) {
+        cout << "pas possible c'est pair" << endl;
+        return;
+    }
+
+    //dimensionner la matrice à la taille NxN
+    Mat.resize(N);
+
+    for (unsigned i = 0; i<Mat.size() ; ++i)
+    {
+        Mat[i].resize(N);
+    }
+    //construction de la matrice
+    unsigned posX (N/2), posY(N/2), val (1);
+    Mat [posX][posY] = val++;
+    for (unsigned nbMouvement (2); val <= N * N; nbMouvement += 2){
+        //deplacement bas droite
+        ++posX; ++posY;
+        //deplacement haut
+        for (unsigned i (0); i < nbMouvement; ++i)
+            Mat[--posX][posY] = val++;
+        //deplacement gauche
+        for (unsigned i (0); i < nbMouvement; ++i)
+            Mat[posX][--posY] = val++;
+        //deplacement bas
+        for (unsigned i (0); i < nbMouvement; ++i)
+            Mat[++posX][posY] = val++;
+        //deplacement droite
+        for (unsigned i (0); i < nbMouvement; ++i)
+            Mat[posX][++posY] = val++;
+    }
+}
+
+
+int main() {
+    ////    srand(time(NULL));
+    //    unsigned N = 5;
+    //    vector <unsigned> vUlam = nbPremiersAvantN(N*N+1);
+    ////    vUlam = nbPremiersAvantN (N*N+1, vUlam, 2);
+    //    affchichVect (vUlam);
+    ////    stockerVectPremiersDansFichier(vUlam, N, "tmp.txt");
+    ////    lireVectPremiersDepuisFichier(vUlam, N, "tmp.txt");
+    // //   affchichVect (vUlam);
+    //    cMatrice uneMatrice;
+    //    construireMatriceAleatoire (uneMatrice, N);
+    //    afficherMatrice (uneMatrice);
+    //    afficherMatriceUlam (uneMatrice, vUlam);
+    //    return 0;
+    srand(time(NULL));
+
+    unsigned N = 5;
+    unsigned M = 0;
+    vector <unsigned> vUlam = nbPremiersAvantN(N*N+1);
+    vector <unsigned> vBis;
+
+
+    //nbPremiersAvantN(1001, vUlam, N);
+    affchichVect (vUlam);
+
+    //stockerVecteurPremiersDansFichier(vUlam, N, "Test.txt");
+
+    //lireVectPremiersDepuisFichier("Test.txt", M, vBis);
+    //afficheVect(vBis);
+
+    cMatrice Mat;
+    //construireMatriceAleatoire(Mat, N);
+    construireMatriceEscargot(Mat,N);
+    afficherMatrice(Mat);
+    afficherMatriceUlam(Mat, vUlam);
+
+
+    return 0;
+}
+
