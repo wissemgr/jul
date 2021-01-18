@@ -1,0 +1,337 @@
+#include <iostream>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <termios.h>
+#include "game.h"
+#include "params.h"
+#include "gridmanagement.h"
+#include "Nos_fichiers/menu.h"
+
+#include <map>
+using namespace std;
+template <class T, class U>
+void ShowMap (const map<T,U> & AMap){
+    for (const pair <T,U> & Val : AMap)                cout << "Cle : " << Val.first << "  "             << "Valeur : " << Val.second << endl;
+    cout << endl;
+}// ShowMap ()
+
+void set_input_mode (void)
+{
+struct termios tattr;
+
+/* Make sure stdin is a terminal. */
+if (!isatty (STDIN_FILENO))
+{
+fprintf (stderr, "Not a terminal.\n");
+exit (EXIT_FAILURE);
+}
+
+/* Set the funny terminal modes. */
+tcgetattr (STDIN_FILENO, &tattr);
+tattr.c_lflag &= ~(ICANON|ECHO); /* Clear ICANON and ECHO. */
+tattr.c_cc[VMIN] = 0;
+tattr.c_cc[VTIME] = 3;
+tcsetattr (STDIN_FILENO, TCSAFLUSH, &tattr);
+}
+
+void Teleporteur (CMat & Mat, CPosition & Pos)
+{
+    unsigned Posa = 2;
+    unsigned Posb = 8;
+
+    if (Mat [Pos.first][Pos.second] == Mat[5][3]){
+
+      Pos.first = Posa;
+      Pos.second = Posb;
+
+    }
+
+
+}
+void tel (CMat & Mat, CPosition & Pos)
+{
+    unsigned Posa = 6;
+    unsigned Posb = 3;
+    if (Mat [Pos.first][Pos.second] == Mat[3][8]){
+     Pos.first = Posa;
+     Pos.second = Posb;
+    }
+}
+
+void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
+{
+    char car = Mat [Pos.first][Pos.second];
+    Mat [Pos.first][Pos.second] = KEmpty;
+    switch (Move)
+    {
+    case 'Y' :
+        break;
+    case 'A':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+        }
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            ++Pos.first;
+            break;
+        }
+        if(Mat [Pos.first][Pos.second] == Mat[5][3])
+        {
+
+        }
+        break;
+    case 'Z':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first-1][Pos.second] == '#')
+        {
+            break;
+        }
+
+        else {
+            --Pos.first;
+        }
+        Teleporteur(Mat, Pos);
+        tel(Mat, Pos);
+        break;
+
+    case 'E':
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        }
+        else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            ++Pos.first;
+            break;
+        }
+        break;
+    case 'Q':
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second-1] == '#')
+        {
+
+            break;
+        }
+        else {
+            --Pos.second;
+        }
+
+        break;
+    case 'D':
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second+1] == '#')
+        {
+
+            break;
+        }
+        else {
+            ++Pos.second;
+        }
+        break;
+    case 'W':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+
+        }
+        else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+
+        }
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            --Pos.first;
+            break;
+        }
+
+        break;
+    case 'S':
+
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+            break;
+        }
+
+        if(Mat[Pos.first+1][Pos.second] == '#')
+        {
+
+            break;
+        }
+        else {
+            ++Pos.first;
+        }
+
+        if (Mat [Pos.first][Pos.second] == Mat[5][3]){
+
+          Pos.first = Pos.first - 1;
+          Pos.second = Pos.second + 5;
+        }
+        break;
+    case 'C':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+        } else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        } else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            --Pos.first;
+            break;
+        }
+        break;
+    }
+    Mat [Pos.first][Pos.second] = car;
+} //MoveToken ()
+
+
+bool PileouFace (unsigned valeur){
+    bool resultat;
+    unsigned cote;
+    srand(time(NULL));
+    cote = rand() % 2 + 1;
+    if (valeur == cote)
+    {
+        resultat = true;
+    }
+    else {
+        resultat = false;
+    }
+    return resultat;
+}
+
+int ppal (void)
+{
+    unsigned saisi(0);
+    const unsigned KSize (10);
+    unsigned PartyNum (1);
+    const unsigned KMaxPartyNum (KSize * KSize);
+    CMat Mat;
+    cout << "\033[H\033[2J";
+    AfficheFich("CoinFlip.txt");
+    cin >> saisi;
+    bool Player1Turn (PileouFace(saisi));
+    bool Victory (false);
+
+    CPosition PosPlayer1, PosPlayer2;
+
+    CMyParam Param;
+    const string config = "../PacMan/Nos_fichiers/config.yaml";
+    InitParam(config);
+    int RetVal = LoadParams(Param, config);
+    if (RetVal != 0)
+    {
+        return RetVal;
+    }
+
+
+    InitGrid(Mat, Param, PosPlayer1, PosPlayer2);
+
+    DisplayGrid (Mat, Param);
+    set_input_mode();
+    if(Player1Turn == true)
+    {
+        cout << "Bravo Joueur 1, vous avez gagné le pile ou face" <<endl;
+    }
+    else
+    {
+        cout << "Dommage Joueur 1, vous n'avez pas gagné le pile ou face" << endl;
+
+    }
+    while (PartyNum <= KMaxPartyNum && ! Victory)
+    {
+        cout << "tour numero : " << PartyNum << ", Joueur"
+             << (Player1Turn ? '1' : '2') << ", entrez un déplacement : "
+             << endl;
+
+        char Move= 'Y';
+        read(STDIN_FILENO, &Move, 1);
+
+        Move = toupper (Move);
+        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
+        ClearScreen();
+        DisplayGrid (Mat, Param);
+
+        //Victiry test
+        if (PosPlayer1 == PosPlayer2) Victory = true;
+
+        //Increase party's number
+        if(Move != 'Y')
+            ++PartyNum;
+
+        //Player changing
+        if(Move != 'Y')
+            Player1Turn = !Player1Turn;
+    }//while (no victory)
+
+    if (!Victory)
+    {
+        Color (KColor.find("KMAgenta")->second);
+        cout << "Aucun vainqueur" << endl;
+        return 1;
+    }
+
+    Color (KColor.find("KGreen")->second);
+    cout << "Félicitations Joueur" << (Player1Turn ? '2' : '1')
+         << " vous avez gagné :)" << endl;
+    Color (KColor.find("KReset")->second);
+    return 0;
+} //ppal ()
