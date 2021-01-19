@@ -1,0 +1,356 @@
+void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
+{
+    char car = Mat [Pos.first][Pos.second];
+    Mat [Pos.first][Pos.second] = KEmpty;
+    switch (Move)
+    {
+    case 'A':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+        }
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            ++Pos.first;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == 'o')
+        {
+            ++Pos.second;
+            ++Pos.first;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+        break;
+    case 'Z':
+
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first-1][Pos.second] == '#')
+        {
+            break;
+        }
+
+
+
+        if(Mat[Pos.first-1][Pos.second] == 'o')
+        {
+            break;
+        }
+
+        else {
+            --Pos.first;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            cout << piece();
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+            break;
+        }
+
+        break;
+
+    case 'E':
+        if (Pos.first == 0) {
+            Pos.first = Mat.size()-1;
+        }
+        else {
+            -- Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        }
+        else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            ++Pos.first;
+            break;
+        }
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            --Pos.second;
+            ++Pos.first;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+        break;
+    case 'Q':
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second-1] == '#')
+        {
+
+            break;
+        }
+        if(Mat[Pos.first][Pos.second-1] == 'o')
+        {
+
+            break;
+        }
+
+        else {
+            --Pos.second;
+        }
+
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+        break;
+    case 'D':
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second+1] == '#')
+        {
+
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second+1] == 'o')
+        {
+
+            break;
+        }
+
+        else {
+            ++Pos.second;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+
+
+        break;
+    case 'W':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+
+        }
+        else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == 0) {
+            Pos.second = Mat[Pos.first].size()-1;
+
+        }
+
+        else {
+            -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            ++Pos.second;
+            --Pos.first;
+            break;
+        }
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            ++Pos.second;
+            --Pos.first;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+        break;
+    case 'S':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+            break;
+        }
+
+        if(Mat[Pos.first+1][Pos.second] == '#')
+        {
+
+            break;
+        }
+        if(Mat[Pos.first+1][Pos.second] == 'o' )
+        {
+
+            break;
+        }
+        else {
+            ++Pos.first;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+        break;
+    case 'C':
+
+        if (Pos.first == Mat.size()-1) {
+            Pos.first = 0;
+        } else {
+            ++ Pos.first;
+        }
+
+        if (Pos.second == Mat[Pos.first].size()-1) {
+            Pos.second = 0;
+        } else {
+            ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '#')
+        {
+            --Pos.second;
+            --Pos.first;
+            break;
+        }
+
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            --Pos.second;
+            --Pos.first;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+        break;
+    }
+    Mat [Pos.first][Pos.second] = car;
+} //MoveToken ()
