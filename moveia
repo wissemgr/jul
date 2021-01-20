@@ -1,0 +1,36 @@
+char Moveia(char & Move, char & Move2)
+{
+
+    switch (Move)
+    {
+    case 'Y' :
+        Move2 = 'y';
+        break;
+    case 'S' :
+        Move2 = 'Z';
+        break;
+    case 'Z' :
+        Move2 = 'S';
+        break;
+    case 'D' :
+        Move2 = 'Q' ;
+        break;
+    case 'Q' :
+        Move2 = 'D' ;
+        break;
+    case 'C' :
+        Move2 = 'A' ;
+        break;
+    case 'A' :
+        Move2 = 'C';
+        break;
+    case 'E' :
+        Move2 = 'W';
+        break;
+    case 'W' :
+        Move2 = 'E';
+        break;
+    }
+
+    return Move2;
+}
