@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,56 +20,38 @@ void ShowMap (const map<T,U> & AMap){
 
 void set_input_mode (void)
 {
-struct termios tattr;
+    struct termios tattr;
 
-/* Make sure stdin is a terminal. */
-if (!isatty (STDIN_FILENO))
-{
-fprintf (stderr, "Not a terminal.\n");
-exit (EXIT_FAILURE);
-}
-
-/* Set the funny terminal modes. */
-tcgetattr (STDIN_FILENO, &tattr);
-tattr.c_lflag &= ~(ICANON|ECHO); /* Clear ICANON and ECHO. */
-tattr.c_cc[VMIN] = 0;
-tattr.c_cc[VTIME] = 3;
-tcsetattr (STDIN_FILENO, TCSAFLUSH, &tattr);
-}
-
-void Teleporteur (CMat & Mat, CPosition & Pos)
-{
-    unsigned Posa = 2;
-    unsigned Posb = 8;
-
-    if (Mat [Pos.first][Pos.second] == Mat[5][3]){
-
-      Pos.first = Posa;
-      Pos.second = Posb;
-
+    /* Make sure stdin is a terminal. */
+    if (!isatty (STDIN_FILENO))
+    {
+        fprintf (stderr, "Not a terminal.\n");
+        exit (EXIT_FAILURE);
     }
 
-
-}
-void tel (CMat & Mat, CPosition & Pos)
-{
-    unsigned Posa = 6;
-    unsigned Posb = 3;
-    if (Mat [Pos.first][Pos.second] == Mat[3][8]){
-     Pos.first = Posa;
-     Pos.second = Posb;
-    }
+    /* Set the funny terminal modes. */
+    tcgetattr (STDIN_FILENO, &tattr);
+    tattr.c_lflag &= ~(ICANON|ECHO); /* Clear ICANON and ECHO. */
+    tattr.c_cc[VMIN] = 0;
+    tattr.c_cc[VTIME] = 3;
+    tcsetattr (STDIN_FILENO, TCSAFLUSH, &tattr);
 }
 
-void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
+
+//unsigned piece(CMat & Mat, CPosition & Pos)
+//{
+//    unsigned point=0;
+//    if(Mat[Pos.first][Pos.second] == '.')
+//        ++point;
+//    return point;
+//}
+
+void MoveToken (CMat & Mat, const char & Move, CPosition & Pos, unsigned & point)
 {
     char car = Mat [Pos.first][Pos.second];
     Mat [Pos.first][Pos.second] = KEmpty;
-    unsigned point = 0;
     switch (Move)
     {
-    case 'Y' :
-        break;
     case 'A':
 
         if (Pos.first == 0) {
@@ -85,15 +68,41 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             -- Pos.second;
         }
 
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
+        }
+
         if(Mat[Pos.first][Pos.second] == '#')
         {
             ++Pos.second;
             ++Pos.first;
             break;
         }
-        if(Mat [Pos.first][Pos.second] == Mat[5][3])
-        {
 
+        if (Mat[Pos.first][Pos.second] == 'o')
+        {
+            ++Pos.second;
+            ++Pos.first;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
         }
         break;
     case 'Z':
@@ -108,12 +117,41 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             break;
         }
 
+
+
+        if(Mat[Pos.first-1][Pos.second] == 'o')
+        {
+            break;
+        }
+
+        else {
+            --Pos.first;
+        }
+
         if(Mat[Pos.first][Pos.second] == '.')
         {
             ++point;
+
         }
-        else {
-            --Pos.first;
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+            break;
         }
 
         break;
@@ -133,12 +171,42 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             ++ Pos.second;
         }
 
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
+        }
+
         if(Mat[Pos.first][Pos.second] == '#')
         {
             --Pos.second;
             ++Pos.first;
             break;
         }
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            --Pos.second;
+            ++Pos.first;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
         break;
     case 'Q':
 
@@ -152,8 +220,36 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
 
             break;
         }
+        if(Mat[Pos.first][Pos.second-1] == 'o')
+        {
+
+            break;
+        }
+
         else {
             --Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[12][29]) {
+            Pos.first = 2;
+            Pos.second = 4;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
         }
 
         break;
@@ -169,9 +265,42 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
 
             break;
         }
+
+        if(Mat[Pos.first][Pos.second+1] == 'o')
+        {
+
+            break;
+        }
+
         else {
             ++Pos.second;
         }
+
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
+
+
         break;
     case 'W':
 
@@ -187,8 +316,15 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             Pos.second = Mat[Pos.first].size()-1;
 
         }
+
         else {
             -- Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
         }
 
         if(Mat[Pos.first][Pos.second] == '#')
@@ -197,9 +333,32 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             --Pos.first;
             break;
         }
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            ++Pos.second;
+            --Pos.first;
+            break;
+        }
 
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
         break;
     case 'S':
+
         if (Pos.first == Mat.size()-1) {
             Pos.first = 0;
             break;
@@ -210,28 +369,60 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
 
             break;
         }
+        if(Mat[Pos.first+1][Pos.second] == 'o' )
+        {
+
+            break;
+        }
         else {
             ++Pos.first;
         }
 
-//        if (Mat [Pos.first][Pos.second] == Mat[5][3]){
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
 
-//          Pos.first = Pos.first - 1;
-//          Pos.second = Pos.second + 5;
-//        }
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
         break;
     case 'C':
 
         if (Pos.first == Mat.size()-1) {
             Pos.first = 0;
-        } else {
+        }
+
+        else {
             ++ Pos.first;
         }
 
         if (Pos.second == Mat[Pos.first].size()-1) {
             Pos.second = 0;
-        } else {
+        }
+
+        else {
             ++ Pos.second;
+        }
+
+        if(Mat[Pos.first][Pos.second] == '.')
+        {
+            ++point;
+
         }
 
         if(Mat[Pos.first][Pos.second] == '#')
@@ -240,10 +431,54 @@ void MoveToken (CMat & Mat, const char & Move, CPosition & Pos)
             --Pos.first;
             break;
         }
+
+        if(Mat[Pos.first][Pos.second] == 'o')
+        {
+            --Pos.second;
+            --Pos.first;
+            break;
+        }
+
+
+        if (Mat[Pos.first][Pos.second] == Mat[2][5]) {
+            Pos.first = 12;
+            Pos.second = 30;
+            break;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[10][3]) {
+            Pos.first = 8;
+            Pos.second = 17;
+        }
+
+        if (Mat[Pos.first][Pos.second] == Mat[4][31]) {
+            Pos.first = 6;
+            Pos.second = 17;
+        }
+
         break;
     }
     Mat [Pos.first][Pos.second] = car;
 } //MoveToken ()
+
+
+
+void ChangClassement(unsigned & PartyNum, string & pseudo, const string & nomfichier){
+    ofstream ofs (nomfichier);
+    if (ofs.is_open() != true)
+    {
+        cout << "Erreur" << endl;
+        return;
+    }
+
+    ofs << "Classement \n" << endl;
+    ofs << "Pseudo : " << pseudo << endl;
+    ofs << "Nombre de tours : " << PartyNum << endl;
+    ofs << "Points : ";
+
+
+}
+
 
 
 bool PileouFace (unsigned valeur){
@@ -265,7 +500,7 @@ int ppal (void)
 {
     unsigned saisi(0);
     unsigned PartyNum (1);
-    const unsigned KMaxPartyNum (150);
+    const unsigned KMaxPartyNum (550);
     CMat Mat;
     cout << "\033[H\033[2J";
     AfficheFich("CoinFlip.txt");
@@ -289,7 +524,7 @@ int ppal (void)
 
     DisplayGrid (Mat, Param);
 
-    set_input_mode();
+
     if(Player1Turn == true)
     {
         cout << "Bravo Joueur 1, vous avez gagné le pile ou face" <<endl;
@@ -299,22 +534,35 @@ int ppal (void)
         cout << "Dommage Joueur 1, vous n'avez pas gagné le pile ou face" << endl;
 
     }
+
+    string pseudo1;
+    string pseudo2;
+    cout << "Joueur 1 : Tapez votre pseudo " << endl;
+    cin >> pseudo1;
+    cout << "Joueur 2 : Tapez votre pseudo " << endl;
+    cin >> pseudo2;
+
+    unsigned point1 = 0;
+    unsigned point2 = 0;
     while (PartyNum <= KMaxPartyNum && ! Victory)
     {
-        cout << "tour numero : " << PartyNum << ", Joueur"
-             << (Player1Turn ? '1' : '2') << ", entrez un déplacement : "
+        cout << "tour numero : " << PartyNum << ", "
+             << (Player1Turn ? point1: point2) << " point, "
+             << (Player1Turn ? pseudo1 : pseudo2) << ", entrez un déplacement : "
              << endl;
 
         char Move= 'Y';
+        set_input_mode();
         read(STDIN_FILENO, &Move, 1);
 
         Move = toupper (Move);
-        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2));
+
+        MoveToken (Mat, Move, (Player1Turn ? PosPlayer1: PosPlayer2), (Player1Turn ? point1: point2));
         ClearScreen();
         DisplayGrid (Mat, Param);
 
         //Victiry test
-        if (PosPlayer1 == PosPlayer2) Victory = true;
+        if (PosPlayer1 == PosPlayer2 | point1 == 40 | point2 == 80) Victory = true;
 
         //Increase party's number
         if(Move != 'Y')
@@ -336,5 +584,8 @@ int ppal (void)
     cout << "Félicitations Joueur" << (Player1Turn ? '2' : '1')
          << " vous avez gagné :)" << endl;
     Color (KColor.find("KReset")->second);
+    ChangClassement(PartyNum,(Player1Turn ? pseudo1 : pseudo2) , "classement.txt");
+    AfficheFich("classement.txt");
+
     return 0;
 } //ppal ()
