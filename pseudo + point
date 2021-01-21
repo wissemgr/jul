@@ -1,0 +1,15 @@
+    string pseudo1;
+    string pseudo2;
+    cout << "Joueur 1 : Tapez votre pseudo " << endl;
+    cin >> pseudo1;
+    cout << "Joueur 2 : Tapez votre pseudo " << endl;
+    cin >> pseudo2;
+
+    unsigned point1 = 0;
+    unsigned point2 = 0;
+    while (PartyNum <= KMaxPartyNum && ! Victory)
+    {
+        cout << "tour numero : " << PartyNum << ", "
+             << (Player1Turn ? point1: point2) << " point, "
+             << (Player1Turn ? pseudo1 : pseudo2) << ", entrez un déplacement : "
+             << endl;
