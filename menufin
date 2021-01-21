@@ -1,0 +1,239 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include "menu.h"
+
+using namespace std;
+
+
+void choix_couleur(string & couleur)
+{
+
+    unsigned choix;
+    cout << "Joueur 1 : Choisissez votre couleur: ";
+    cin >> choix;
+
+    switch (choix)
+    {
+    case 1 :
+        couleur = "KBlack";
+        break;
+    case 2 :
+        couleur = "KRed";
+        break;
+    case 3 :
+        couleur = "KGreen" ;
+        break;
+    case 4 :
+        couleur = "KYellow" ;
+        break;
+    case 5 :
+        couleur = "KBlue" ;
+        break;
+    case 6 :
+        couleur = "KMagenta";
+        break;
+    case 7 :
+        couleur = "KCyan";
+        break;
+    }
+}
+void choix_couleur2(string & couleur)
+{
+
+    unsigned choix;
+    cout << "Joueur 2 : Choisissez votre couleur: ";
+    cin >> choix;
+
+    switch (choix)
+    {
+    case 1 :
+        couleur = "KBlack";
+        break;
+    case 2 :
+        couleur = "KRed";
+        break;
+    case 3 :
+        couleur = "KGreen" ;
+        break;
+    case 4 :
+        couleur = "KYellow" ;
+        break;
+    case 5 :
+        couleur = "KBlue" ;
+        break;
+    case 6 :
+        couleur = "KMagenta";
+        break;
+    case 7 :
+        couleur = "KCyan";
+        break;
+    }
+}
+
+void choixcarac (char & carac)
+{
+    unsigned choix;
+    cout << "Joueur 1 : Choisissez votre charactère" << endl;
+    cin >> choix;
+    switch (choix)
+    {
+    case 1 :
+        carac = 'X';
+        break;
+    case 2 :
+        carac = 'O';
+        break;
+    case 3 :
+        carac = '@';
+        break;
+    case 4 :
+        carac = '$';
+        break;
+    case 5 :
+        carac = '%';
+        break;
+    case 6 :
+        carac = '+';
+        break;
+
+    }
+}
+
+void choixcarac2 (char & carac)
+{
+    unsigned choix;
+    cout << "Joueur 2 : Choisissez votre charactère" << endl;
+    cin >> choix;
+    switch (choix)
+    {
+    case 1 :
+        carac = 'X';
+        break;
+    case 2 :
+        carac = 'O';
+        break;
+    case 3 :
+        carac = '@';
+        break;
+    case 4 :
+        carac = '$';
+        break;
+    case 5 :
+        carac = '%';
+        break;
+    case 6 :
+        carac = '+';
+        break;
+
+    }
+}
+void AfficheFich (const string & kfichier) // Affiche les Fichiers
+{
+    // if (! ofs.is_open()){
+    // cout << "Erreur" << endl;
+    // return;
+    ifstream texte (kfichier.c_str());
+    if(texte.is_open() == true)
+    {
+        string ligne;
+        while (getline(texte, ligne))
+        {
+            cout << ligne << endl;
+        }
+    }
+
+    else
+    {
+        cout << "ERRUR AFFICHAGE" << endl;
+    }
+}
+
+void InitParam (const string & monFichier)
+{
+    ofstream ofs(monFichier);
+    if (!ofs.is_open())
+    {
+        cout << "erreur" << endl;
+        return;
+    }
+    char Kup = 'z';
+    char Kdown = 's';
+    char Kleft = 'q';
+    char Kright = 'd';
+
+    ofs << "KeyUp : " << Kup << endl;
+    ofs << "KeyDown : " << Kdown<< endl;
+    ofs << "KeyLeft : " << Kleft<< endl;
+    ofs << "KeyRight : " << Kright<< endl;
+
+    ofs << "NbColumn : " << 15 << endl;
+    ofs << "NbRow : " << 35 << endl;
+
+    string couleur1;
+    string couleur2;
+    choix_couleur(couleur1);
+    choix_couleur2(couleur2);
+    ofs << "ColorP1 : " << couleur1 << endl;
+    ofs << "ColorP2 :  " << couleur2 << endl;
+
+    cout << "\033[H\033[2J";
+    AfficheFich("carac.txt");
+    char Token1 = 'O';
+    char Token2 = 'X';
+    choixcarac(Token1);
+    choixcarac2(Token2);
+    ofs << "TokenP1 : " << Token1<< endl;
+    ofs << "TokenP2 : " << Token2<< endl;
+}
+
+
+
+int menu () { // int menu dans le projet (servira à choisir menu)
+    string const fichier("accueil.txt");
+    AfficheFich(fichier);
+    cout << "choisir un truc :  ";
+    unsigned reponse=0;
+    cin >> reponse;
+    while (true)
+    {
+        if (reponse == 1)
+        {
+            break;
+        }
+        if (reponse == 2)
+        {
+            cout << "\033[H\033[2J";
+            string const fichier ("param.txt");
+            unsigned choix=0;
+            AfficheFich(fichier);
+            cout << "Faites un choix" << endl;
+            cin >> choix;
+            if (choix == 1)
+            {
+                cout << "\033[H\033[2J";
+                AfficheFich("couleur.txt");
+                InitParam("../PacMan/Nos_fichiers/config.yaml");
+            }
+
+            if (choix == 2)
+            {
+                cout << "\033[H\033[2J";
+                unsigned quitter=0;
+                AfficheFich("commande.txt");
+                cin >> quitter;
+                break;
+            }
+
+            if(choix == 3)
+                break;
+            break;
+        }
+
+        else {
+            exit(0);
+        }
+    }
+    return 0;
+}
