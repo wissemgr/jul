@@ -1,0 +1,33 @@
+unsigned choixclasse (bool & Playerturn)
+{
+    bool classerunner;
+    bool classetempl;
+    unsigned choixclasse=0;
+
+    cout << "Joueur 1, choisissez votre classe" <<endl;
+    cin >> choixclasse;
+    if (choixclasse == 1)
+        classerunner = Playerturn;
+    if (choixclasse == 2)
+        classetempl = Playerturn;
+
+    return classerunner;
+
+
+}
+
+bool choixclasse2 (bool & Playerturn)
+{
+    bool classerunner;
+    bool classetempl;
+    unsigned choixclasse=0;
+
+    cout << "Joueur 2, choisissez votre classe" <<endl;
+    cin >> choixclasse;
+    if (choixclasse == 1)
+        classerunner = Playerturn;
+
+    return classerunner;
+
+
+}
