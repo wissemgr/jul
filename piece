@@ -1,0 +1,102 @@
+void piece (CMat & Mat)
+{
+    const char c = '.'; //block servant d'obstacle
+
+    //Ligne 1 & 12
+    for (unsigned i(3); i < 12; ++i)
+    {
+        Mat[i][1] = c;
+    }
+
+    for (unsigned i(3); i < 12; ++i)
+    {
+        Mat[i][33] = c;
+    }
+
+    for (unsigned i(6); i < 15; ++i)
+    {
+        Mat[1][i] = c;
+        Mat[13][i]= c;
+    }
+
+    for (unsigned i(20); i < 29; ++i)
+    {
+        Mat[1][i] = c;
+        Mat[13][i]= c;
+    }
+
+    for (unsigned i(14); i < 21; ++i)
+    {
+        Mat[0][i] = c;
+        Mat[14][i]= c;
+    }
+
+    for (unsigned i(6); i < 9; ++i)
+    {
+        Mat[i][2] = c;
+        Mat[i][3] = c;
+
+        Mat[i][32] = c;
+        Mat[i][31] = c;
+
+        Mat[i][3] = c;
+        Mat[i][11] = c;
+
+        Mat[i][23] = c;
+    }
+
+    for (unsigned i(4); i < 11; ++i)
+    {
+        Mat[5][i] = c;
+        Mat[9][i] = c;
+    }
+
+    for (unsigned i(24); i < 31; ++i)
+    {
+        Mat[5][i] = c;
+        Mat[9][i] = c;
+    }
+
+    for (unsigned i(10); i < 13; ++i)
+    {
+        Mat[i][7] = c;
+        Mat[i][8] = c;
+
+        Mat[i][26] = c;
+        Mat[i][27] = c;
+    }
+
+    for (unsigned i(2); i < 5; ++i)
+    {
+        Mat[i][7] = c;
+        Mat[i][8] = c;
+
+        Mat[i][26] = c;
+        Mat[i][27] = c;
+    }
+
+    for (unsigned i (12); i < 23; ++i)
+    {
+        Mat[4][i] = c;
+        Mat[4][i] = c;
+
+        Mat[10][i] = c;
+        Mat[10][i] = c;
+    }
+
+    Mat[7][14] = c;
+    Mat[7][15] = c;
+    Mat[7][16] = c;
+
+    Mat[7][18] = c;
+    Mat[7][19] = c;
+    Mat[7][20] = c;
+
+
+    Mat[6][17] = c;
+
+    Mat[8][17] = c;
+
+
+
+}
