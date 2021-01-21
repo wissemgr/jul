@@ -1,0 +1,160 @@
+GAMEIA.H :
+#ifndef GAMEIA_H
+#define GAMEIA_H
+
+/*!
+ * @file gameIA.h
+ * @brief Met en place des paramètres utiles pour le jeu
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+
+/*!
+ * @brief Déplacer le joueur actuel en fonction du caractère dans le 2ème paramètre
+ * @author Maldonado Kevin
+ * @param[in, out] Mat : la matrice avant et après le déplacement
+ * @param[in] Move : la touche appuyée l'utilisateur
+ * @param[in, out] Pos : la position du joueur avant et après le coup
+ * @param[out] Point : augmente le nombre de point lorsque le joueur va sur une piece
+ * @fn void MouveEnnemies (CMat & Mat, unsigned & MovRand, CPosition & Pos);
+ * @version 2.0
+ * @date 20 janvier 2020
+ */
+
+void MouveEnnemies (CMat & Mat, unsigned & MovRand, CPosition & Pos);
+
+/**
+ * @brief new main
+ * @author Maldonado Kevin
+ * @author Ghouili Wissem
+ * @return 0 si tout est bon
+ * @fn int ppalIa (void);
+ */
+
+int ppalIa (void);
+
+#endif // GAMEIA_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+GRIDIA.H :
+#ifndef GRIDMANAGEMENTIA_H
+#define GRIDMANAGEMENTIA_H
+
+
+/*!
+ * @file gridmanagement.h
+ * @brief Met en place des paramètres utiles pour le gridmanagementIA
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+/**
+ * @brief Affiche la grille en fonction des paramètres
+ * @author Maldonado Kevin
+ * @param[in] Mat : Grille du jeu
+ * @param[in] Params : : Liste de paramètres utiles
+ * @fn void DisplayGridIa (const CMat & Mat, const CMyParam & Param);
+ * @version 2.0
+ * @date 20 janvier 2021
+ */
+
+void DisplayGridIa (const CMat & Mat, const CMyParam & Param);
+
+
+/*!
+ * @brief Initialisation de la matrice à partir de zéro
+ * @author Maldonado Kevin
+ * @param[out] Mat la matrice à initialiser
+ * @param[in] Params Met en place les paramètres du jeu
+ * @param[out] PosPlayer1 position du premier joueur dans Mat
+ * @param[out] PosIa1 position du de l'IA numero 1 dans Mat
+ * @param[out] PosIa2 position du de l'IA numero 2 dans Mat
+ * @param[out] PosIa3 position de l'IA numero 3 dans Mat
+ * @param[out] PosIa4 position de l'IA numero 4 dans Mat
+ * @fn void InitGridIa (CMat & Mat, const CMyParam & Params, CPosition & PosPlayer1, CPosition & PosIa1, CPosition & PosIa2, CPosition & PosIa3, CPosition & PosIa4);
+ * @version 2.0
+ * @date 20 janvier 2021
+ */
+
+void InitGridIa (CMat & Mat, const CMyParam & Params, CPosition & PosPlayer1, CPosition & PosIa1, CPosition & PosIa2, CPosition & PosIa3, CPosition & PosIa4);
+
+#endif // GRIDMANAGEMENTIA_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARAMS.H :
+#ifndef PARAMSIA_H
+#define PARAMSIA_H
+
+
+/**
+ * @file paramsIA.h
+ * @brief Définition des paramètres et des fonctions associés
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+
+/**
+ * @file paramsIA.h
+ * @brief Définition des paramètres et des fonctions associés pour l'intelligence artificielle
+ * @author Kevin Maldonado
+ * @version 2.0
+ * @date 20 janvier 2021
+ */
+
+#include "Nos_fichiers/typeIA.h"
+
+
+/**
+ * @brief Charge les paramètres du fichier YAML
+ * @author Maldonado Kevin
+ * @param[out] Param : Liste des paramètres utiles
+ * @param[in] FileName : Chemin du fichier à charger
+ * @fn int LoadParamsIA (CMyParam & Param, const std::string & FileName);
+ * @return 0 si tout est bon, return erreur si le fichier ne peut pas se charger
+ * @version 2.0
+ * @date 20 janvier 2021
+ */
+
+int LoadParamsIA (CMyParam & Param, const std::string & FileName);
+
+#endif // PARAMSIA_H
