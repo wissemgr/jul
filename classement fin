@@ -1,0 +1,21 @@
+void ChangClassement(unsigned & PartyNum, string & pseudo, const string & nomfichier){
+    ofstream ofs (nomfichier);
+    if (ofs.is_open() != true)
+    {
+        cout << "Erreur" << endl;
+        return;
+    }
+
+    ofs << "Classement \n" << endl;
+    ofs << "Pseudo : " << pseudo << endl;
+    ofs << "Nombre de tours : " << PartyNum << endl;
+    ofs << "Points : ";
+
+
+}
+
+
+
+int ppal :
+ChangClassement(PartyNum,(Player1Turn ? pseudo1 : pseudo2) , "classement.txt");
+AfficheFich("classement.txt");
