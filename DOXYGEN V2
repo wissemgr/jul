@@ -1,0 +1,187 @@
+GAME.H
+#ifndef GAMEV2_H
+#define GAMEV2_H
+
+/*!
+ * @file game.h
+ * @brief Met en place des paramètres utiles pour le jeu
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+
+/*!
+ * @brief Déplace le joueur actuel en fonction du caractère dans le 2ème paramètre
+ * @author Bennai Yanis
+ * @author Ghouili Wissem
+ * @author Maldonado Kevin
+ * @author Alali Djessim
+ * @param[in, out] Mat : la matrice avant et après le déplacement
+ * @param[in] Move : la touche appuyée l'utilisateur
+ * @param[in, out] Pos : la position du joueur avant et après le coup
+ * @param[out] Point : augmente le nombre de point lorsque le joueur va sur une piece
+ * @fn void MoveToken (CMat & Mat, const char & Move, CPosition & Pos, unsigned & point);
+ * @version 2.0
+ * @date 20 janvier 2020
+ */
+
+void MoveToken (CMat & Mat, const char & Move, CPosition & Pos, unsigned & point);
+
+
+/*!
+ * @brief Réinitialisation du mode non canonique
+ * @fn void reset_input_mode (void);
+ * @version 1.0
+ * @date 12 janvier 2020
+ */
+
+void reset_input_mode (void);
+
+
+/*!
+ * @brief Mode non canonique
+ * @fn void set_input_mode (void);
+ * @version 1.0
+ * @date 12 janvier 2020
+ */
+void set_input_mode (void);
+
+
+/*!
+ * @brief Jeu du pile ou face afin de déterminer quel joueur va jouer en premier
+ * @author Maldonado Kevin
+ * @param[out] Valeur : ce que le joueur a choisis (donc pile ou face)
+ * @return le résultat du pile ou face
+ * @fn bool PileouFace (unsigned valeur);
+ * @version 1.0
+ * @date 12 janvier 2020
+ */
+
+bool PileouFace (unsigned valeur);
+
+
+/**
+ * @brief le main du jeu
+ * @author Maldonado Kevin
+ * @author Ghouili Wissem
+ * @return 0 si tout est bon
+ * @fn int ppal ();
+ */
+
+int ppal ();
+
+#endif // GAMEV2_H
+
+
+
+
+
+
+
+
+
+
+GRIDMANAGEMENT.H :
+#ifndef GRIDMANAGEMENTV2_H
+#define GRIDMANAGEMENTV2_H
+
+/*!
+ * @file gridmanagement.h
+ * @brief Met en place des paramètres utiles pour le gridmanagement
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+
+#include "Correc_Prof/type.h" //nos types
+
+
+/**
+ * @brief "Efface" le terminal actuel
+ *  void ClearScreen ();
+ */
+void ClearScreen ();
+
+
+/**
+ * @brief Initialise la couleur de la future entrée dans le terminal
+ * @param[in] Col : Nouvelle couleur à utiliser
+ * @fn void Color (const std::string & Col);
+ */
+
+void Color (const std::string & Col);
+
+
+/**
+ * @brief Afficher la grille en fonction des paramètres
+ * @param[in] Mat : Grille du jeu
+ * @param[in] Params : : Liste de paramètres utiles
+ * @fn void DisplayGrid (const CMat & Mat, const CMyParam & Params, bool ShowLineNumber = true, bool ShowColor = true);
+ */
+
+void DisplayGrid (const CMat & Mat, const CMyParam & Params);
+
+
+/*!
+ * @brief Initialisation de la matrice à partir de zéro
+ * @author Maldonado Kevin
+ * @author Ghouili Wissem
+ * @author Bennai Yans
+ * @param[in, out] Mat : la matrice à initialiser
+ * @param[in] Parms : Met en place les paramètres du jeu
+ * @param[out] PosPlayer1 : position du token du premier joueur dans Mat
+ * @param[out] PosPlayer2 : position du token du deuxième joueur dans Mat
+ * @fn void InitGrid (CMat & Mat, const CMyParam & Params, CPosition & PosPlayer1, CPosition & PosPlayer2);
+ * @version 2.0
+ */
+
+void InitGrid (CMat & Mat, const CMyParam & Params, CPosition & PosPlayer1, CPosition & PosPlayer2);
+
+#endif // GRIDMANAGEMENTV2_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+PARAMS.H
+#ifndef PARAMSV2_H
+#define PARAMSV2_H
+
+
+/**
+ * \file params.h
+ * \brief Definition des paramètres et des fonctions associés
+ * \author Alain Casali
+ * \author Marc Laporte
+ * \version 1.0
+ * \date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+
+/**
+ * @brief Charge les paramètres du fichier YAML
+ * @param[out] Param : Liste des paramètres utiles
+ * @param[in] FileName : Chemin du fichier à charger
+ * @fn void LoadParams (CMyParam & Param);
+ * @return 0 si tout est bon, return erreur si le fichier ne peut pas se charger
+ */
+
+int LoadParams (CMyParam & Param, const std::string & FileName);
+
+#endif // PARAMSV2_H
