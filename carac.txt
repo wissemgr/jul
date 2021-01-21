@@ -1,0 +1,18 @@
+-----------------------------------------
+|                                       |
+|        Choisissez votre joueur        |
+|                                       |
+|                                       |
+|   [1] Francois la croix               |
+|                                       |
+|   [2] Simon le rond                   |
+|                                       |
+|   [3] Mag le hashtag                  |
+|                                       |
+|   [4] Edward le dollars               |
+|                                       |
+|   [5] Mirage le pourcentage           |
+|                                       |
+|   [6] Marius le plus                  |
+|                                       |
+-----------------------------------------
