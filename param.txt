@@ -1,0 +1,13 @@
+-------------------------------------------
+|                                         |
+|               Paramètres                |
+|                                         |
+| Vous êtes à présent dans les parametres!|
+|      Que souhaitez-vous faire?          |
+|                                         |
+|       [1] Choix des couleurs            |
+|           et des personnage             |
+|       [2] Voir les commandes            |
+|       [3] Quitter                       |
+|                                         |
+-------------------------------------------
