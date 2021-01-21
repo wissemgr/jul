@@ -1,0 +1,18 @@
+-----------------------------------------
+|                                       |
+|                                       |
+|              Déplacement              |
+|                                       |
+|                                       |
+|           Vers le haut : Z            |
+|           Vers le haut : S            |
+|           Vers le haut : Q            |
+|           Vers le haut : D            |
+|           Vers le haut : A            |
+|           Vers le haut : E            |
+|           Vers le haut : W            |
+|           Vers le haut : C            |
+|                                       |
+|   Entrer une toucher pour quitter     |
+|                                       |
+-----------------------------------------
