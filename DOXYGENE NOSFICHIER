@@ -1,0 +1,253 @@
+CLASSEMENT.H : 
+#ifndef CLASSEMENT_H
+#define CLASSEMENT_H
+
+/**
+ * @file Classement.h
+ * @brief Change le fichier classement en fonction du premier, deuxième et troisième parametres
+ * @author Ghouili Wissem
+ * @param[out] PartyNum : le nombre
+ * @param[out] pseudo : le pseudo du joueur gagnant
+ * @param[out] point : le nombre de point qu'a le joueur lorsqu'il gagne
+ * @param[in] nomFichier : le fichier du classement qui va être modifié
+ * @fn void ChangClassement(unsigned & PartyNum, std::string & pseudo, unsigned & point, const std::string & nomfichier);
+ * @version 1.0
+ * @date 19 janvier 2021
+ */
+
+#include <string>
+
+void ChangClassement(unsigned & PartyNum, std::string & pseudo, unsigned & point, const std::string & nomfichier);
+
+#endif // CLASSEMENT_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COLLISION.H :
+#ifndef COLLISION_H
+#define COLLISION_H
+
+/*!
+ * @file collision.h
+ * @brief Met en place des paramètres utiles pour les collisions
+ * @author Alain Casali
+ * @author Marc Laporte
+ * @version 1.0
+ * @date 18 décembre 2018
+ */
+
+#include "Correc_Prof/type.h"
+
+/**
+ * @brief Génére les "murs" en fonction de la matrice passée en paramètre
+ * @author Maldonado Kevin
+ * @param[out] Mat : la matrice en question
+ * @fn void mur (CMat & Mat);
+ * @version 1.0
+ * @date 19 janvier 2021
+ */
+
+void mur (CMat & Mat);
+
+
+/**
+ * @brief Génére des "pieces" en fonction de la matrice passée en paramètre
+ * @author Ghouili Wissem
+ * @param[out] Mat : la matrice en question
+ * @fn void piece (CMat & Mat);
+ * @version 1.0
+ * @date 21 janvier 2021
+ */
+
+void piece (CMat & Mat);
+
+#endif // COLLISION_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MENU.H :
+#ifndef MENU_H
+#define MENU_H
+
+/*!
+ * @file menu.h
+ * @brief Affiche le menu principal du jeu et les autres menus
+ * @author Maldonado Kevin
+ * @author Bennai Yanis
+ * @author Ghouili Wissem
+ * @version 1.0
+ * @date 05 janvie 2021
+ */
+
+int menu();
+
+/**
+ * @brief Choisis la couleur que le joueur 1 choisis en paramètre
+ * @author Ghouili Wissem
+ * @param[out] couleur : la couleur que le joueur 1 a choisis
+ * @fn void piece (CMat & Mat);
+ * @version 1.0
+ * @date 20 janvier 2021
+ */
+
+#include <string>
+
+void choix_couleur(std::string & couleur);
+
+
+/**
+ * @brief Choisis la couleur que le joueur 2 choisis en paramètre
+ * @author Ghouili Wissem
+ * @param[out] couleur : la couleur que le joueur 2 a choisis
+ * @fn void choix_couleur2(std::string & couleur);
+ * @version 1.0
+ * @date 20 janvier 2021
+ */
+
+void choix_couleur2(std::string & couleur);
+
+
+/**
+ * @brief Choisis le personnage que le joueur 1 choisis en paramètre
+ * @author Ghouili Wissem
+ * @param[out] carac : le caractère que le joueur 1 a choisis
+ * @fn void choixcarac (char & carac);
+ * @version 1.0
+ * @date 21 janvier 2021
+ */
+
+void choixcarac (char & carac);
+
+
+/**
+ * @brief Choisis le personnage que le joueur 2 choisis en paramètre
+ * @author Ghouili Wissem
+ * @param[out] carac : le caractère que le joueur 2 a choisis
+ * @fn void choixcarac2 (char & carac);
+ * @version 1.0
+ * @date 21 janvier 2021
+ */
+
+void choixcarac2 (char & carac);
+
+
+/**
+ * @brief Met en place les paramètres choisis par les joueurs dans le fichier YAML
+ * @author Ghouili Wissem
+ * @param[in] nomfichier : le fichier YAML où l'on va modifier les paramètres
+ * @fn void InitParam (const std::string & monFichier);
+ * @version 2.0
+ * @date 19 janvier 2021
+ */
+
+void InitParam (const std::string & nomFichier);
+
+
+/**
+ * @brief Affiche le fichier mis en paramètre
+ * @author Ghouili Wissem
+ * @author Maldonado Kevin
+ * @param[in] kfichier : le fichier qu'on souhaite afficher
+ * @fn void AfficheFich (const std::string & kfichier);
+ * @version 1.0
+ * @date 12 janvier 2021
+ */
+
+void AfficheFich (const std::string & kfichier);
+
+
+
+#endif // MENU_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TYPEIA.H :
+#ifndef TYPEIA_H
+#define TYPEIA_H
+
+/*!
+ * \file typeIA.h
+ * \brief Définition des types d'alias utiles pour le projet
+ * \author Maldonado Kevin
+ * \version 2.0
+ * \date 20 janvier 2021
+ */
+
+#include <string>
+#include <vector>
+#include <map>
+
+
+/**
+ * @brief Structure contenant toutes les clés autorisées dans la structure CMyParam
+ */
+
+struct AuthorizedKeyIA {
+    /** Liste des clés autorisées pour le type char dans une structure CMyParam*/
+    const std::vector <std::string> VParamCharIA {"KeyUp", "KeyDown", "KeyLeft", "KeyRight", "TokenP1", "IaP1", "IaP2", "IaP3", "IaP4"};
+    /** Liste des clés autorisées pour le type string dans une structure CMyParam*/
+    const std::vector <std::string> VParamStringIA {"ColorTokenP1", "ColorIaP1", "ColorIaP2", "ColorIaP3", "ColorIaP4"};
+    /** Liste des clés autorisées pour le type unsigned dans une structure CMyParam*/
+    const std::vector <std::string> VParamUnsignedIA {"NbRow", "NbColumn"};
+};
+
+/**
+ * @brief KAuthorizedKeyIA
+ */
+const AuthorizedKeyIA KAuthorizedKeyIA;
+
+
+#endif // TYPEIA_H
